@@ -5,6 +5,7 @@ import LoginScreen from './screens/Login'
 import RegisterScreen from './screens/Register'
 import RegisterCar from './screens/Car'
 import RegisterRent from './screens/Rent'
+import CarList from './screens/CarList'
 
 const Stack = createNativeStackNavigator()
 
@@ -16,6 +17,7 @@ export default function App() {
         <Stack.Screen name='Login' component={LoginScreen}/>
         <Stack.Screen name='Register' component={RegisterScreen}/>
         <Stack.Screen name='Car' component={RegisterCar}/>
+        <Stack.Screen name='CarList' component={CarList}/>
         <Stack.Screen name='Rent' component={RegisterRent}/>
       </Stack.Navigator>
     </NavigationContainer>

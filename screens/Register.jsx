@@ -5,6 +5,8 @@ import { styles } from '../assets/styles/styles'
 import { CrearUsuario } from './Objects/Users'
 import HomeTabs from './HomeTabs'
 
+let text = ""
+
 export default function RegisterScreen({navigation}) {
 
   const theme = useTheme()
@@ -12,7 +14,7 @@ export default function RegisterScreen({navigation}) {
   const {control, handleSubmit, formState:{errors}} = useForm({
     defaultValues: {
       username: '',
-      username: '',
+      name: '',
       password: ''
     }
   })
@@ -21,15 +23,16 @@ export default function RegisterScreen({navigation}) {
     const {username, name, password} = dataform
 
     if(CrearUsuario(username, name, password)){
-      console.log("Usuario Registrado")
+      text = ""
       navigation.navigate(HomeTabs)
     }else{
-      console.log("Usuario Ya Existe")
+      text = "Usuario ya existe"
     }
   }
   
   return (
       <View style={styles.container}>
+        <Text style={{color:'red'}}>{text}</Text>
         <Controller
           control={control}
           rules={{

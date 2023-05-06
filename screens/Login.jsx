@@ -2,12 +2,13 @@ import { Text, View } from 'react-native'
 import { TextInput, useTheme, Button } from 'react-native-paper'
 import {useForm, Controller} from 'react-hook-form'
 import { styles } from '../assets/styles/styles'
-import { BuscarPassword } from './Objects/Users'
+import { BuscarPassword, BuscarUsername } from './Objects/Users'
+import HomeTabs from './HomeTabs'
+
+let text = ""
 
 export default function LoginScreen({navigation}) {
-
   const theme = useTheme()
-
   const {control, handleSubmit, formState:{errors}} = useForm({
     defaultValues: {
       username: '',
@@ -18,18 +19,20 @@ export default function LoginScreen({navigation}) {
   const onSubmit = (dataform) => {
     const {username, password} = dataform
 
-    let isValid = BuscarPassword(username, password)
-
-    if(isValid){
-      console.log("Inicio sesion correcto")
-      navigation.navigate('Car')
+    if(BuscarPassword(username, password)){
+      text = ""
+      navigation.navigate(HomeTabs)
     }else{
-      console.log("Error al iniciar sesion")
+      let usernameValid = BuscarUsername(username)
+      if(usernameValid){
+        text = "Usuario o contraseña incorrecto"
+      }
     }
   }
   
   return (
       <View style={styles.container}>
+        <Text style={{color:'red'}}>{text}</Text>
         <Controller
           control={control}
           rules={{

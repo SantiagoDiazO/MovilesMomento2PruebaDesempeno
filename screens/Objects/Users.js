@@ -24,15 +24,27 @@ export function CrearUsuario(username, name, password){
 
 export function BuscarUsername(username){
     let usernameFound = users.find(user => user.username === username)
-    return usernameFound
+    if(usernameFound != undefined){
+        return true
+    }else{
+        return false
+    }
 }
 
 export function BuscarName(name){
     let userFound = users.find(user => user.name === name)
-    return userFound
+    if(userFound != undefined){
+        return true
+    }else{
+        return false
+    }
 }
 
 export function BuscarPassword(username, password){
     let usernameAndPasswordFound = users.find(user => user.username === username && user.password === password)
-    return usernameAndPasswordFound
+    if(usernameAndPasswordFound != undefined){
+        return true
+    }else{
+        return false
+    }
 }

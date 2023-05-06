@@ -10,7 +10,6 @@ export function CrearAuto(plateNumber, brand){
     let newCar = new Auto(plateNumber, brand, true)
     if(cars.length === 0){
         cars.push(newCar)
-        console.log(cars)
         return true
     }else{
         let carFound = BuscarPlaca(newCar.plateNumber)
@@ -18,7 +17,6 @@ export function CrearAuto(plateNumber, brand){
             return false
         }else{
             cars.push(newCar)
-            console.log(cars)
             return true
         }
     }
@@ -26,5 +24,13 @@ export function CrearAuto(plateNumber, brand){
 
 export function BuscarPlaca(plateNumber){
     let plateNumberFound = cars.find(car => car.plateNumber === plateNumber)
-    return plateNumberFound
+    if(plateNumberFound != undefined){
+        return true
+    }else{
+        return false
+    }
+}
+
+export function ListarCarros(){
+    return cars
 }

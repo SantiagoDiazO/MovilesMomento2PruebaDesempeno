@@ -2,8 +2,10 @@ import { Text, View } from 'react-native'
 import { TextInput, useTheme, Button } from 'react-native-paper'
 import {useForm, Controller} from 'react-hook-form'
 import { styles } from '../assets/styles/styles'
-import HomeTabs from './HomeTabs'
 import { CrearRenta } from './Objects/Rents'
+import User from './User'
+
+let text = ""
 
 export default function RegisterRent({navigation}) {
 
@@ -22,14 +24,16 @@ export default function RegisterRent({navigation}) {
     const {rentNumber, username, plateNumber, rentDate} = dataform
 
     if(CrearRenta(rentNumber, username, plateNumber, rentDate)){
-      console.log("Renta Registrada")
+      text = ""
+      navigation.navigate(User)
     }else{
-      console.log("Renta Ya Existe")
+      text = "Datos renta erroneos"
     }
   }
   
   return (
       <View style={styles.container}>
+        <Text style={{color:'red'}}>{text}</Text>
         <Controller
           control={control}
           rules={{

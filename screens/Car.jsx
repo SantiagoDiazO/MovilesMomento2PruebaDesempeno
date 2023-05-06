@@ -3,6 +3,9 @@ import { TextInput, useTheme, Button } from 'react-native-paper'
 import {useForm, Controller} from 'react-hook-form'
 import { styles } from '../assets/styles/styles'
 import { CrearAuto } from './Objects/Cars'
+import User from './User'
+
+let text = ""
 
 export default function RegisterCar({navigation}) {
 
@@ -19,15 +22,20 @@ export default function RegisterCar({navigation}) {
     const {plateNumber, brand} = dataform
 
     if(CrearAuto(plateNumber, brand)){
-      console.log("Auto Registrado")
-      navigation.navigate('Rent')
+      text = ""
+      navigation.navigate(User)
     }else{
-      console.log("Auto Ya Existe")
+      text = "Placa auto ya existe"
     }
+  }
+
+  const listCars = () => {
+    navigation.navigate('CarList')
   }
   
   return (
       <View style={styles.container}>
+        <Text style={{color:'red'}}>{text}</Text>
         <Controller
           control={control}
           rules={{
@@ -82,6 +90,10 @@ export default function RegisterCar({navigation}) {
 
         <Button icon="send" mode="contained" buttonColor="#3183c8" style={{marginTop:"20px"}} onPress={handleSubmit(onSubmit)}>
           Registrar auto
+        </Button>
+
+        <Button mode="contained" buttonColor="#3183c8" style={{marginTop:"20px"}} onPress={listCars}>
+          Listar Autos
         </Button>
       </View>
   )
