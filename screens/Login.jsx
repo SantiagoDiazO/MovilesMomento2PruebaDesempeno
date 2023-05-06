@@ -1,28 +1,30 @@
 import { Text, View } from 'react-native'
-import { TextInput, Button } from 'react-native-paper'
+import { TextInput, useTheme, Button } from 'react-native-paper'
 import {useForm, Controller} from 'react-hook-form'
 import { styles } from '../assets/styles/styles'
+import { BuscarPassword } from './Objects/Users'
 
 export default function LoginScreen({navigation}) {
 
-    let usuarioPrueba = "Santiago"
-    let contraseñaPrueba = "123456789"
+  const theme = useTheme()
 
   const {control, handleSubmit, formState:{errors}} = useForm({
     defaultValues: {
-      user: '',
+      username: '',
       password: ''
     }
   })
 
   const onSubmit = (dataform) => {
-    const {user, password} = dataform
+    const {username, password} = dataform
 
-    if(user == usuarioPrueba && password == contraseñaPrueba){
-        //navigation.navigate('Profile')
-        console.log("Inicio sesion correcto")
+    let isValid = BuscarPassword(username, password)
+
+    if(isValid){
+      console.log("Inicio sesion correcto")
+      navigation.navigate('Car')
     }else{
-        console.log("Error al iniciar sesion")
+      console.log("Error al iniciar sesion")
     }
   }
   
@@ -32,9 +34,7 @@ export default function LoginScreen({navigation}) {
           control={control}
           rules={{
            required: true,
-           maxLength: 30,
-           minLength: 2,
-           pattern: /^[A-Za-zÑñÁÉÍÓÚáéíóú]+$/g
+           pattern: /^[A-Za-z-0-9]+$/g
           }}
           render={({ field: { onChange, onBlur, value } }) => (
             <TextInput
@@ -43,22 +43,23 @@ export default function LoginScreen({navigation}) {
               onBlur={onBlur}
               onChangeText={onChange}
               value={value}
+              theme={{
+                colors: {
+                  primary: theme.colors.black
+                }
+              }}
             />
           )}
-          name="user"
+          name="username"
         />
 
-        {errors.user?.type == 'required' && <Text style={{color:'red'}}> El usuario es obligatorio</Text>}
-        {errors.user?.type == 'maxLength' && <Text style={{color:'red'}}> El usuario tiene un maximo de 30 chars</Text>}
-        {errors.user?.type == 'minLength' && <Text style={{color:'red'}}> El usuario tiene un minimo de 2 chars</Text>}
-        {errors.user?.type == 'pattern' && <Text style={{color:'red'}}> El usuario no debe tener letras y/o espacios</Text>}
+        {errors.username?.type == 'required' && <Text style={{color:'red'}}> El usuario es obligatorio</Text>}
+        {errors.username?.type == 'pattern' && <Text style={{color:'red'}}> El usuario no debe tener letras, numeros y/o espacios</Text>}
         
         <Controller
           control={control}
           rules={{
            required: true,
-           maxLength: 30,
-           minLength: 5,
            pattern: /^[A-Za-z-0-9]+$/g
           }}
           render={({ field: { onChange, onBlur, value } }) => (
@@ -68,18 +69,21 @@ export default function LoginScreen({navigation}) {
               onBlur={onBlur}
               onChangeText={onChange}
               value={value}
+              theme={{
+                colors: {
+                  primary: theme.colors.black
+                }
+              }}
             />
           )}
           name="password"
         />
 
         {errors.password?.type == 'required' && <Text style={{color:'red'}}> La contraseña es obligatoria</Text>}
-        {errors.password?.type == 'maxLength' && <Text style={{color:'red'}}> La contraseña tiene un maximo de 30 chars</Text>}
-        {errors.password?.type == 'minLength' && <Text style={{color:'red'}}>La contraseña tiene un minimo de 5 chars</Text>}
         {errors.password?.type == 'pattern' && <Text style={{color:'red'}}> La contraseña no debe contener caracteres especiales</Text>}
 
-        <Button icon="send" mode="contained" style={{marginTop:"20px"}} onPress={handleSubmit(onSubmit)}>
-          Enviar
+        <Button icon="send" mode="contained" buttonColor="#3183c8" style={{marginTop:"20px"}} onPress={handleSubmit(onSubmit)}>
+          Iniciar Sesion
         </Button>
       </View>
   )
