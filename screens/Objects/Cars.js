@@ -31,6 +31,17 @@ export function BuscarPlaca(plateNumber){
     }
 }
 
+export function DesactivarAuto(plateNumber) {
+    const carIndex = cars.findIndex((car) => car.plateNumber === plateNumber);
+  
+    if (carIndex !== -1) {
+      cars[carIndex].state = false
+      return true
+    } else {
+      return false
+    }
+  }
+
 export function ListarCarros(){
     return cars
 }

@@ -11,7 +11,7 @@ export default function RegisterCar({navigation}) {
 
   const theme = useTheme()
 
-  const {control, handleSubmit, formState:{errors}} = useForm({
+  const {control, handleSubmit, formState:{errors}, reset} = useForm({
     defaultValues: {
       plateNumber: '',
       brand: ''
@@ -23,6 +23,7 @@ export default function RegisterCar({navigation}) {
 
     if(CrearAuto(plateNumber, brand)){
       text = ""
+      reset()
       navigation.navigate(User)
     }else{
       text = "Placa auto ya existe"

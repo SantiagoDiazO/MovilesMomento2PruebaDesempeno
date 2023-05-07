@@ -1,4 +1,4 @@
-import { BuscarPlaca } from "./Cars"
+import { BuscarPlaca, DesactivarAuto } from "./Cars"
 import { BuscarUsername } from "./Users"
 
 function Renta(rentNumber, username, plateNumber, rentDate) {
@@ -15,6 +15,7 @@ export function CrearRenta(rentNumber, username, plateNumber, rentDate){
 
     if(rents.length === 0 && BuscarUsername(username) && BuscarPlaca(plateNumber)){
         rents.push(newRent)
+        DesactivarAuto(plateNumber)
         return true
     }else{
         let rentFound = BuscarRenta(newRent.rentNumber)
@@ -23,6 +24,7 @@ export function CrearRenta(rentNumber, username, plateNumber, rentDate){
         }else{
             if(BuscarUsername(username) && BuscarPlaca(plateNumber)){
                 rents.push(newRent)
+                DesactivarAuto(plateNumber)
                 return true
             }else{
                 return false
