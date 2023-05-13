@@ -11,7 +11,7 @@ export default function RegisterRent({navigation}) {
 
   const theme = useTheme()
 
-  const {control, handleSubmit, formState:{errors}} = useForm({
+  const {control, handleSubmit, formState:{errors}, reset} = useForm({
     defaultValues: {
       rentNumber: '',
       username: '',
@@ -26,6 +26,7 @@ export default function RegisterRent({navigation}) {
     if(CrearRenta(rentNumber, username, plateNumber, rentDate)){
       text = ""
       navigation.navigate(User)
+      reset()
     }else{
       text = "Datos renta erroneos"
     }

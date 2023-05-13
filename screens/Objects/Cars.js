@@ -31,6 +31,20 @@ export function BuscarPlaca(plateNumber){
     }
 }
 
+export function AutoActivo(plateNumber){
+    const carIndex = cars.findIndex((car) => car.plateNumber === plateNumber);
+  
+    if (carIndex !== -1) {
+        if(cars[carIndex].state){
+            return true
+        }else{
+            return false
+        }
+    } else {
+      return false
+    }
+}
+
 export function DesactivarAuto(plateNumber) {
     const carIndex = cars.findIndex((car) => car.plateNumber === plateNumber);
   
